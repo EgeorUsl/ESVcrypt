@@ -1,0 +1,29 @@
+# CMake build
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+*.qmake.stash
+*.qmake.cache
+
+# Build
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.app
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Others IDE files
+.vscode/
+.idea/
+
