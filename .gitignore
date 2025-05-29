@@ -10,6 +10,7 @@ Makefile
 *.pro.user.*
 *.qmake.stash
 *.qmake.cache
+.qt/
 
 # Build
 *.o
