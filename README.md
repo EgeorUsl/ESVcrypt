@@ -8,7 +8,7 @@ Simple console encoder/file decoder based on AES-256.
 
 
 <p align="center">
-  <img width="700" align="center" src="https://github.com/EgeorUsl/ESVcrypt/blob/664318ad99d69c20b1d7de0f9c8396c12783496d/demo/demo-work.mp4" alt="demo"/>
+  <img width="700" align="center" src="https://github.com/EgeorUsl/ESVcrypt/blob/664318ad99d69c20b1d7de0f9c8396c12783496d/demo/demo-work.gif" alt="demo"/>
 </p>
 
 ## 🚀 Usage
