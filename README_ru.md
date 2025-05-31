@@ -78,7 +78,6 @@ chmod +x ESVcrypt
 ```
 ---
 # Установка
-
 ## Готовые сборки
 
 Вы можете скачать готовые бинарные файлы из [последнего релиза на GitHub](https://github.com/EgeorUsl/ESVcrypt/releases).
@@ -104,5 +103,3 @@ cd build
 cmake ..
 cmake --build .
 ```
-
----
