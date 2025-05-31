@@ -41,7 +41,7 @@
 ## ✨ Демонстрация
 
 <p align="center">
-  <img width="700" align="center" src="https://github.com/EgeorUsl/ESVcrypt/blob/664318ad99d69c20b1d7de0f9c8396c12783496d/demo/demo-work.gif" alt="Демонстрация работы"/>
+  <img width="700" align="center" src="https://github.com/EgeorUsl/ESVcrypt/blob/f06abec893fba2047217db02434c1e6833da9cb4/demo/demo-work.gif" alt="Демонстрация работы"/>
 </p>
 
 ## 🚀 Использование
