@@ -5,8 +5,6 @@ Simple console encoder/file decoder based on AES-256.
 > This project is still under development
 
 ## ✨ Demo
-
-
 <p align="center">
   <img width="700" align="center" src="https://github.com/EgeorUsl/ESVcrypt/blob/f06abec893fba2047217db02434c1e6833da9cb4/demo/demo-work.gif" alt="demo"/>
 </p>
@@ -48,7 +46,6 @@ chmod +x ESVcrypt
 ```
 
 # Installation
----
 ## Release binaries
 
 Pre-built artifacts are available to download from [latest GitHub release](https://github.com/EgeorUsl/ESVcrypt/releases).
