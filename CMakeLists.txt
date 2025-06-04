@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
 project(ESVcrypt VERSION 0.1.1 LANGUAGES CXX)
+set(CMAKE_SYSTEM_NAME Windows)
+set(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
+set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+set(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+
+# Path to Windows Qt and OpenSSL libraries:
+set(Qt6_DIR "/path/to/qt6/windows/lib/cmake/Qt6")
+set(OPENSSL_ROOT_DIR "/path/to/openssl/windows")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 17)
