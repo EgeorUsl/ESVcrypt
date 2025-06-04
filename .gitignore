@@ -11,6 +11,7 @@ Makefile
 *.qmake.stash
 *.qmake.cache
 .qt/
+.pro
 
 # Build
 *.o
