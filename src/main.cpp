@@ -1,4 +1,6 @@
 #include "core/utils.hpp"
+#include "gui/gui.hpp"
+#include <QApplication>
 #include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QCryptographicHash>
@@ -11,10 +13,10 @@
 #define iterations 100000
 #define keyLength 32 // AES-256
 
-int main(int argc, char *argv[]) {
+int runCliMode(int argc, char *argv[]) {
   QCoreApplication app(argc, argv);
   QCoreApplication::setApplicationName("ESVcrypt");
-  QCoreApplication::setApplicationVersion("0.1.0");
+  QCoreApplication::setApplicationVersion("0.1.1");
 
   QCommandLineParser parser;
   parser.setApplicationDescription("");
@@ -34,13 +36,20 @@ int main(int argc, char *argv[]) {
 
   QString inputFile = parser.value(inputOption);
   QString outputFile = parser.value(outputOption);
-  QString mode = parser.positionalArguments().at(0).toLower();
+
+  // Check if we have positional arguments
+  QStringList positionalArgs = parser.positionalArguments();
+  if (positionalArgs.isEmpty()) {
+    qWarning() << "Mode not specified. Use 'encrypt' or 'decrypt'.";
+    parser.showHelp(1);
+    return 1;
+  }
+
+  QString mode = positionalArgs.at(0).toLower();
 
   if ((mode != "encrypt" && mode != "decrypt") &&
-      (mode[0] != "e" && mode[0] != "d")) {
-    qWarning()
-        << "The wrong mode of operation. Permissible values: encrypt, decrypt"
-        << mode;
+      (mode[0] != 'e' && mode[0] != 'd')) {
+    qWarning() << "Invalid mode. Use: encrypt, decrypt";
     return 1;
   }
 
@@ -49,13 +58,13 @@ int main(int argc, char *argv[]) {
   std::string input2Password;
   QByteArray password;
 
-  if (mode == "decrypt" || mode[0] == "d") {
+  if (mode == "decrypt" || mode[0] == 'd') {
     std::cout << "Password: ";
     std::getline(std::cin, inputPassword);
     password = QByteArray::fromStdString(inputPassword);
   }
 
-  if (mode == "encrypt" || mode[0] == "e") {
+  if (mode == "encrypt" || mode[0] == 'e') {
     while (1) {
       std::cout << "Password: ";
       std::getline(std::cin, inputPassword);
@@ -70,19 +79,19 @@ int main(int argc, char *argv[]) {
     password = QByteArray::fromStdString(inputPassword);
   }
 
-  // Gen salt (16 bytes)
+  // Generate salt (16 bytes)
   QByteArray salt(16, '\0');
   QRandomGenerator::global()->fillRange(
       reinterpret_cast<quint32 *>(salt.data()), salt.size() / sizeof(quint32));
 
-  // Gen IV (16 bytes)
+  // Generate IV (16 bytes)
   QByteArray iv(16, '\0');
   QRandomGenerator::global()->fillRange(reinterpret_cast<quint32 *>(iv.data()),
                                         iv.size() / sizeof(quint32));
 
-  // Gen key
+  // Generate key
   QByteArray key;
-  if (mode == "encrypt" || mode[0] == "e") {
+  if (mode == "encrypt" || mode[0] == 'e') {
     key = QCryptographicHash::hash(password + salt, QCryptographicHash::Sha256);
     for (int i = 1; i < iterations; i++) {
       key = QCryptographicHash::hash(key + password + salt,
@@ -98,7 +107,7 @@ int main(int argc, char *argv[]) {
   }
 
   // Encryption
-  if (mode == "encrypt" || mode[0] == "e") {
+  if (mode == "encrypt" || mode[0] == 'e') {
     if (!encryptFile(inputFile, outputFile, key, iv, salt)) {
       qWarning() << "Encryption error!";
       return 2;
@@ -106,11 +115,28 @@ int main(int argc, char *argv[]) {
   }
 
   // Decryption
-  if (mode == "decrypt" || mode[0] == "d") {
+  if (mode == "decrypt" || mode[0] == 'd') {
     if (!decryptFile(inputFile, outputFile, password)) {
       qWarning() << "Decryption error!";
       return 2;
     }
   }
   return 0;
+}
+
+int main(int argc, char *argv[]) {
+  // Check if we have command line arguments
+  if (argc > 1) {
+    return runCliMode(argc, argv);
+  }
+
+  // Run GUI mode
+  QApplication app(argc, argv);
+  QCoreApplication::setApplicationName("ESVcrypt");
+  QCoreApplication::setApplicationVersion("0.1.1");
+
+  MainWindow window;
+  window.show();
+
+  return app.exec();
 }
